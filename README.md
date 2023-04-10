@@ -1,7 +1,7 @@
 # Basketball Simulation
 _Basketball Simulation Game/Engine Built in Tauri_
 
-#### Technologies
+## Built With 
 
 UI
 ---
