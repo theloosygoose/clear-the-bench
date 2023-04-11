@@ -7,6 +7,7 @@ UI
 ---
 - Sveltekit
 - Tailwind
+- Flowbite UI Library
 
 Backend
 ---
