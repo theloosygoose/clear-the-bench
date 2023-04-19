@@ -2,7 +2,6 @@
   import "../app.css";
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger} from 'flowbite-svelte';
   import { DarkMode } from 'flowbite-svelte';
-
 </script>
 
 <Navbar let:hidden let:toggle>
@@ -26,7 +25,3 @@
   <slot />
 </div>
 
-
-<style lang="postcss">
-
-</style>
