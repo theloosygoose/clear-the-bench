@@ -18,6 +18,12 @@ tauri-build = { version = "1.2.1", features = [] }
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.2.4", features = [] }
+csv = "1.2.1"
+rand = "0.8.5"
+rand_derive2 = "0.1.18"
+rand_distr = "0.4.3"
+strum_macros = "0.24"
+strum = {version = "0.24", features = ["derive"] }
 
 [features]
 # by default Tauri runs in production mode
