@@ -3,10 +3,9 @@
   windows_subsystem = "windows"
 )]
 
-use team::teams::Team;
 pub mod ratings;
 pub mod generators;
-pub mod player;
+pub mod people;
 pub mod team;
 
 // remember to call `.manage(MyState::default())`
@@ -16,8 +15,8 @@ fn greet(name: &str) -> String {
 }
 
 #[tauri::command]
-fn generate_teams() -> Vec<Team>{
-  Team::gen_teams()
+fn generate_teams() -> Vec<team::teams::Team>{
+  team::teams::Team::gen_teams()
 }
 
 fn main() {

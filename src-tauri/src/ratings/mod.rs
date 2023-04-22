@@ -1,2 +1,3 @@
-pub mod player_ratings;
-pub mod skill_ratings;
+pub mod tangible;
+pub mod intangible;
+pub mod personality;

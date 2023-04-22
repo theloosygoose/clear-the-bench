@@ -1,10 +1,9 @@
-use serde;
+use serde::Serialize;
 
-use crate::generators::gen_ratings::generate_rating;
-use crate::generators::constants::{MEAN_RTG, MEAN_STD_DEV, WIDE_STD_DEV, NARROW_STD_DEV};
+use crate::generators::gen_ratings::generate_rating; use crate::generators::constants::{MEAN_RTG, MEAN_STD_DEV, WIDE_STD_DEV, NARROW_STD_DEV};
 
-#[derive(Debug, Clone, Copy, serde::Serialize)]
-pub struct Ratings {
+#[derive(Debug, Clone, Copy, Serialize)]
+pub struct IntangibleRatings {
 //Physical Ratings
     pub strength: u16,
     pub fluidity: u16,
@@ -21,30 +20,19 @@ pub struct Ratings {
     pub ball_handling: u16,
     pub sliding: u16,
     pub hands: u16,
-//Personality Ratings
-    pub work_ethic: u16,
-    pub intelligence: u16,
-    pub creativity: u16,
-    pub adaptability: u16,
-    pub loyalty: u16,
-    pub dog_factor: u16,
-
 }
 
-impl Ratings {
-    pub fn gen() -> Ratings {
+impl IntangibleRatings{
+    pub fn gen() -> IntangibleRatings {
         //Generate Height and Length Derivitive
         let height = generate_rating(MEAN_RTG, MEAN_STD_DEV);
         let wingspan = generate_rating(MEAN_RTG, MEAN_STD_DEV);
 
         //Generate INDEPENDENT RATINGS
         let strength = generate_rating(MEAN_RTG, MEAN_STD_DEV);
-
         let off_awareness = generate_rating(MEAN_RTG, MEAN_STD_DEV);
         let def_awareness= generate_rating(MEAN_RTG, MEAN_STD_DEV);
-
         let pass_accuracy = generate_rating(MEAN_RTG, MEAN_STD_DEV);
-
 
         //GENERATE HEIGHT DEPENDENT RATINGS
         //Calculate Inverse mean from Height
@@ -61,48 +49,19 @@ impl Ratings {
         let burst = generate_rating(athleticism_mean, NARROW_STD_DEV);
         let speed = generate_rating(athleticism_mean, NARROW_STD_DEV);
 
-
         //Just Regular Height Weighted Ratings
         let touch = generate_rating(height_weight, MEAN_STD_DEV);
         let ball_handling = generate_rating(height_weight, MEAN_STD_DEV);
         let shot_form = generate_rating(height_weight, MEAN_STD_DEV);
-
         let sliding = generate_rating(height_weight, MEAN_STD_DEV);
         let hands = generate_rating(height_weight, MEAN_STD_DEV);
 
-
         //Generate Random Personality
-        let work_ethic =  generate_rating(MEAN_RTG, MEAN_STD_DEV);
-        let intelligence =  generate_rating(MEAN_RTG, MEAN_STD_DEV);
-        let creativity = generate_rating(MEAN_RTG, MEAN_STD_DEV); 
-        let adaptability = generate_rating(MEAN_RTG, MEAN_STD_DEV);
-        let loyalty = generate_rating(MEAN_RTG, MEAN_STD_DEV); 
-        let dog_factor = generate_rating(MEAN_RTG, MEAN_STD_DEV);
-
-
-        return Ratings{
-            strength,
-            fluidity,
-            burst,
-            speed,
-            height,
-            wingspan,
+        return IntangibleRatings{ 
+            strength, fluidity, burst, speed, height, wingspan,
         //Offense_Defense Ratings
-            off_awareness,
-            def_awareness,
-            shot_form, 
-            touch, 
-            pass_accuracy,
-            ball_handling,
-            sliding,
-            hands,
-        //Personality
-            work_ethic,
-            intelligence,
-            creativity,
-            adaptability,
-            loyalty,
-            dog_factor,
+            off_awareness, def_awareness, shot_form, touch, 
+            pass_accuracy, ball_handling, sliding, hands
         };
     }
 }

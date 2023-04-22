@@ -1,7 +1,8 @@
+use serde::Serialize;
 use strum_macros::{EnumString, Display};
 use rand::{distributions::{Distribution, Standard}, Rng};
 
-#[derive(Debug, Display, EnumString, serde::Serialize)]
+#[derive(Debug, Display, EnumString, Clone, Serialize)]
 pub enum Country {
     UnitedStates, Canada, Cameroon,
     France, Australia, Germany,
