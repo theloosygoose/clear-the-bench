@@ -1,12 +1,10 @@
 <script lang="ts">
 
-    import { invoke } from '@tauri-apps/api/tauri'
+    export let data;
 
-    let teams = invoke('generate_teams');
-
-    console.log(teams);
+    console.log(data);
 </script>
 
 <h1>Hello to New Game</h1>
 
-<slot/>
+<slot />
