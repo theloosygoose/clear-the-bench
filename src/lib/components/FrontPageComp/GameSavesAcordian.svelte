@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { GameSaveData } from '../types';
+  import type { GameSaveData } from '$lib/types_rust';
+
   import { AccordionItem, Accordion, Button } from 'flowbite-svelte';
 
   let sample_save_0:GameSaveData = {

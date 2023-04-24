@@ -1,6 +1,8 @@
 <script lang="ts">
     import { Navbar, NavBrand, NavHamburger, NavUl, NavLi} from 'flowbite-svelte';
-    export let data;
+    import type { LayoutData } from './$types';
+
+    export let data:LayoutData;
 
     console.log(data);
 </script>
@@ -14,9 +16,9 @@
 
   <NavHamburger on:click={toggle} />
     <NavUl {hidden}>
-      <NavLi href="/">Home</NavLi>
-      <NavLi href="/teams">Teams</NavLi>
-      <NavLi href="/players">Players</NavLi>
+      <NavLi href="/game/1/">Home</NavLi>
+      <NavLi href="/game/1/team">Teams</NavLi>
+      <NavLi href="/game/1/player">Players</NavLi>
     </NavUl>
 </Navbar>
 
