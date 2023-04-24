@@ -1,12 +1,11 @@
-import { invoke } from '@tauri-apps/api/tauri'
-import type { LayoutLoad } from '../../$types';
+import { invoke } from "@tauri-apps/api/tauri";
+import type { LayoutData } from "../../../$types";
 
 
 export const load = (() => {
-    let teams = invoke('generate_teams');
+    let data = invoke('generate_teams');
 
+    return { data };
 
-    return {
-        teams
-    };
-}) satisfies LayoutLoad;
+}) satisfies LayoutData;
+

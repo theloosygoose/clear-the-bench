@@ -1,5 +1,5 @@
 <script lang="ts">
-    import GameSavesAcordian from "../lib/FrontPageComp/GameSavesAcordian.svelte";
+    import GameSavesAcordian from "../../lib/FrontPageComp/GameSavesAcordian.svelte";
 </script>
 
 <h1 class="text-4xl font-bold dark:text-white mb-10">Create New Game</h1>
