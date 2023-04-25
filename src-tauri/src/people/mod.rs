@@ -8,6 +8,7 @@ pub mod journalist;
 use rand::Rng;
 use serde::Serialize;
 
+use crate::generators::id::generate_person_id;
 use crate::ratings::personality::Personality;
 use crate::generators::name::country::Country;
 
@@ -26,6 +27,7 @@ pub enum Job {
 #[derive(Debug, Clone, Serialize)]
 pub struct Person {
     pub name: String,
+    pub id: String,
     pub job: Job,
     pub country: Country,
     pub age: u16,
@@ -39,9 +41,11 @@ impl Person {
         let personality = Personality::gen();
         let age = rand::thread_rng().gen_range(16..35);
         let job = Job::Player(player::Player::gen_ratings(&personality));
+        let id = generate_person_id(&name, &country, &age);
 
         Person { 
             name, 
+            id,
             job, 
             country, 
             age, 

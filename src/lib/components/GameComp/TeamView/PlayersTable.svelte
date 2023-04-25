@@ -22,7 +22,7 @@
     {#each players as player}
     <TableBodyRow>
         <TableBodyCell>
-          <a href="/game/1/player/{player.name}">{player.name}</a>
+          <a href="/game/1/player/{player.id}">{player.name}</a>
         </TableBodyCell>
         <TableBodyCell>{player.country}</TableBodyCell>
         <TableBodyCell>{player.job.Player.ratings.height}</TableBodyCell>

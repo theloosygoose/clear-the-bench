@@ -7,7 +7,7 @@
     console.log(data);
 </script>
 
-<Navbar let:hidden let:toggle>
+<Navbar class="mb-12" let:hidden let:toggle>
   <NavBrand href="/">
     <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
         Gameplay Screen

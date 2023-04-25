@@ -58,6 +58,7 @@ export type Personality = {
 export type PlayerPerson = {
     age: number,
     country: string,
+    id: string,
     job: { Player: Player },
     name: string,
     personality: Personality,
