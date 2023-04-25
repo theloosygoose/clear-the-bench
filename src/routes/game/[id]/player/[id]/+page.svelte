@@ -1,6 +1,8 @@
 <script lang="ts">
     import { page } from '$app/stores';
-    import RatingsBars from '$lib/components/GameComp/PlayerView/RatingsBars.svelte';
+    import AthleticismBars from '$lib/components/GameComp/PlayerView/AthleticismBars.svelte';
+    import DefenseBars from '$lib/components/GameComp/PlayerView/DefenseBars.svelte';
+    import SkillsBars from '$lib/components/GameComp/PlayerView/SkillsBars.svelte';
 
     import type { PlayerPerson } from '$lib/types_rust';
     import type { PageData } from './$types';
@@ -17,10 +19,15 @@
 
 </script>
 
-<h1 class="text-2xl">{player.name}</h1>
+<h1 class="dark:text-white text-2xl">{player.name}</h1>
+<h2 class="dark:text-white">Place of Birth: {player.country}</h2>
+<h3 class="dark:text-white">Height: {player.job.Player.ratings.height}</h3>
+<h3 class="dark:text-white">Age: {player.age}</h3>
 
-<h2>Place of Birth: {player.country}</h2>
 
-
-<RatingsBars {intangible_ratings} {tangible_ratings}/>
+<div class="w-[80%] grid grid-cols-3 gap-4">
+    <AthleticismBars {intangible_ratings}/>
+    <SkillsBars {tangible_ratings} />
+    <DefenseBars {tangible_ratings} />
+</div>
 
