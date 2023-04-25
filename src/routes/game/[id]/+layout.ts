@@ -1,12 +1,16 @@
+/* eslint-disable prefer-const */
 import { invoke } from "@tauri-apps/api/tauri";
 import type { LayoutLoad } from "./$types";
-import type { Team } from "$lib/types_rust";
+import type { PlayerPerson, Team } from "$lib/types_rust";
 
 
-export const load = (() => {
-    let data:Array<Team> = invoke('generate_teams');
-    console.log("generated Data");
+export const load = (async () => {
 
-    return { data };
+    let teams: Array<Team> = await invoke('generate_teams');
+
+
+    let players = teams.forEach
+
+    return { teams, players };
 }) satisfies LayoutLoad;
 

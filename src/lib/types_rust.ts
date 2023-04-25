@@ -1,7 +1,7 @@
 export type GameSaveData = {
-    save_name: String,
+    save_name: string,
     id: number,
-    user_team: String,
+    user_team: string,
     year: number,
 }
 
@@ -57,18 +57,18 @@ export type Personality = {
 
 export type PlayerPerson = {
     age: number,
-    country: String,
+    country: string,
     job: { Player: Player },
-    name: String,
+    name: string,
     personality: Personality,
 }
 
 
 export type Team = {
-    coach: String,
+    coach: string,
     losses: number,
-    name: String,
-    owner: String,
+    name: string,
+    owner: string,
     players: Array<PlayerPerson>,
     team_salary: number,
     wins: number,

@@ -7,7 +7,7 @@
 
     export let data: PageData;
 
-    let index = data.data.filter( (e:any) => {
+    let index = data.teams.filter( (e:any) => {
         return e.name == $page.params.id;
     });
 

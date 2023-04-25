@@ -4,11 +4,8 @@
     import { Listgroup, ListgroupItem} from "flowbite-svelte";
 
     export let data: PageData;
-
-    let teams:Array<Team> = data.data;
-
+    let teams:Array<Team> = data.teams;
 </script>
-
 
 <Listgroup active class="w-48">
     <h3 class="text-xl p-2"> Teams </h3>
