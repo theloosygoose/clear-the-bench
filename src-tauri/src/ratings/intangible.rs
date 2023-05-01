@@ -11,6 +11,7 @@ pub struct IntangibleRatings {
     pub speed: u16,
     pub height: u16,
     pub wingspan: u16,
+    
 //Offense_Defense Ratings
     pub off_awareness: u16,
     pub def_awareness: u16,

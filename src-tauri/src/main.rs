@@ -7,21 +7,21 @@ pub mod ratings;
 pub mod generators;
 pub mod people;
 pub mod team;
+pub mod game_handle;
+
+use crate::game_handle::load_game;
 
 // remember to call `.manage(MyState::default())`
 #[tauri::command]
-fn greet(name: &str) -> String {
-  format!("Hello, {}!", name)
+fn greet(name: &str){
+  println!("Hello, {}!", name)
 }
 
-#[tauri::command]
-fn generate_teams() -> Vec<team::teams::Team>{
-  team::teams::Team::gen_teams()
-}
+
 
 fn main() {
   tauri::Builder::default()
-    .invoke_handler(tauri::generate_handler![greet, generate_teams])
+    .invoke_handler(tauri::generate_handler![greet, load_game])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }

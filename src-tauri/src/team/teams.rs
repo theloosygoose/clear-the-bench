@@ -80,7 +80,7 @@ impl Team {
         
         for player in players.iter_mut() {
             match player.job {
-                Job::Player(ref mut z) => z.develop_ratings(&player.personality),
+                Job::Player => player.develop(),
                 _ => println!("This is not a Player"),
             }
             
