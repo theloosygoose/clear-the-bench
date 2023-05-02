@@ -7,6 +7,8 @@ pub mod journalist;
 
 use rand::Rng;
 use serde::Serialize;
+use sqlx::FromRow;
+use strum::{EnumString, Display};
 
 use crate::generators::id::generate_person_id;
 use crate::ratings::intangible::IntangibleRatings;
@@ -15,9 +17,10 @@ use crate::generators::name::country::Country;
 
 use crate::generators::name::gen_name::gen_name;
 use crate::ratings::tangible::TangibleRatings;
+use crate::team::teams::TeamName;
 
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, EnumString, Display)]
 pub enum Job {
     Coach,
     Owner,
@@ -26,17 +29,22 @@ pub enum Job {
     Scout,
 }
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, FromRow)]
 pub struct Person {
     pub name: String,
     pub player_id: String,
     pub job: Job,
     pub country: Country,
     pub age: u16,
+    pub active: u8,
+    pub team: TeamName,
     
     //Ratings
+    #[sqlx(flatten)]
     pub personality: Personality,
+    #[sqlx(flatten)]
     pub intangibles: IntangibleRatings,
+    #[sqlx(flatten)]
     pub tangibles: TangibleRatings,
 }
 
@@ -46,8 +54,10 @@ impl Person {
         let (name, country) = gen_name();
         let personality = Personality::gen();
         let age = rand::thread_rng().gen_range(16..35);
+        let active = 1;
         
         let job = Job::Player;
+        let team = TeamName::generate_random();
         
         let player_id = generate_person_id(&name, &country, &age);
         let intangibles = IntangibleRatings::gen();
@@ -58,7 +68,9 @@ impl Person {
             name, 
             player_id,
             job, 
+            active,
             country, 
+            team,
             age, 
             personality,
             tangibles,
