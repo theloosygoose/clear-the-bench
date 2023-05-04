@@ -54,6 +54,7 @@ pub async fn insert_person(person: Person, db: &SqlitePool) {
         .unwrap();
 }
 
-pub async fn get_person(db: &SqlitePool) -> Person {
+pub async fn get_people(db: &SqlitePool) -> Vec<Person> {
     
 }
+

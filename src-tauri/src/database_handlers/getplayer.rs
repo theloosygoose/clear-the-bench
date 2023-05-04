@@ -1,11 +1,11 @@
 use std::str::FromStr;
 
-use sqlx::{migrate::MigrateDatabase, FromRow, Sqlite, SqlitePool};
-use serde::{Serialize, Deserialize};
+use sqlx::FromRow;
+use serde::Serialize;
 
 use crate::generators::name::country::Country;
 use crate::ratings::tangible::TangibleRatings;
-use crate::team::teams::{Team, TeamName};
+use crate::team::teams::TeamName;
 use crate::people::{Person, Job};
 use crate::ratings::*;
 
@@ -13,7 +13,7 @@ use crate::ratings::*;
 #[derive(Clone, FromRow, Debug, Serialize)]
 pub struct GetPlayer{
     pub name: String,
-    pub player_id: String,
+    pub person_id: String,
     pub job: String,
     pub country: String,
     pub age: u16,
@@ -30,7 +30,7 @@ pub struct GetPlayer{
 impl GetPlayer {
     pub fn translate_to_person(&self) -> Person{
         let name = self.name;
-        let player_id = self.player_id;
+        let person_id = self.person_id;
         let job = Job::from_str(&self.job).unwrap();
         let country = Country::from_str(&self.country).unwrap();
         let age = self.age;
@@ -42,7 +42,7 @@ impl GetPlayer {
 
         Person { 
             name, 
-            player_id, 
+            person_id, 
             job, 
             country, 
             age, 

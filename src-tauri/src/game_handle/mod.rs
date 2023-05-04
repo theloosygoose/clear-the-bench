@@ -12,11 +12,9 @@ use std::fs::create_dir_all;
 use std::path::{PathBuf, Path};
 
 //crate GetPlayer
-use crate::game_handle::getplayer::GetPlayer;
+use crate::database_handlers::getplayer::GetPlayer;
 
 //modules
-pub mod getplayer;
-
 #[derive(Clone, FromRow, Debug, Serialize)]
 pub struct GameData{
     pub save_name: String,
@@ -28,8 +26,6 @@ pub struct GameData{
     pub teams: Vec<Team>,
     pub people: Vec<Person>,
 }
-
-
 
 #[tauri::command]
 pub async fn load_game() {
@@ -135,7 +131,7 @@ pub async fn load_game() {
         while n < pregenerated_players_count {
             let person = Person::gen_player();
             
-            database_handlers::people::insert_person(person, &db);
+            database_handlers::queries::people::insert_person(person, &db);
             
             n += 1;
         }
