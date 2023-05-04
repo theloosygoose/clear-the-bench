@@ -1,18 +1,19 @@
-#![allow(unused_imports)]
 use sqlx::{migrate::MigrateDatabase, FromRow, Sqlite, SqlitePool};
-use serde::{Serialize, Deserialize};
+use serde::Serialize;
 use tauri::api::path::data_dir;
-
-use crate::team::teams::Team;
-use crate::people::Person;
-use crate::{ratings::*, database_handlers};
 
 //std imports
 use std::fs::create_dir_all;
-use std::path::{PathBuf, Path};
 
-//crate GetPlayer
-use crate::database_handlers::getplayer::GetPlayer;
+
+//from my code
+use crate::generators::constants::PREGENERATED_PLAYERS_COUNT;
+
+use crate::team::teams::Team;
+use crate::people::Person;
+
+use crate::database_handlers;
+
 
 //modules
 #[derive(Clone, FromRow, Debug, Serialize)]
@@ -64,76 +65,24 @@ pub async fn load_game() {
             Err(error) => panic!("Error Creating Savefile!! {}", error),
         }
         
+        //CONNECT TO THE DATABASE VIA POOL
         let db = SqlitePool::connect(save_url).await.unwrap();
-        
-        let create_people_table = match sqlx::query("
-            CREATE TABLE IF NOT EXISTS people
-            (
-              player_id   VARCHAR(250) PRIMARY KEY    NOT NULL,
-              name        VARCHAR(100)                NOT NULL,
-              country     VARCHAR(100)                NOT NULL,
-              age         INTEGER                     NOT NULL,
-              active      INTEGER                     NOT NULL DEFAULT 1,
-              job         VARCHAR(50)                 NOT NULL,
-              team        VARCHAR(100),
-              work_ethic    INTEGER,
-              intelligence  INTEGER, 
-              creativity    INTEGER, 
-              adaptability  INTEGER, 
-              loyalty       INTEGER, 
-              dog_factor    INTEGER, 
-              strength      INTEGER,
-              fluidity      INTEGER,
-              burst         INTEGER,
-              speed         INTEGER,
-              height        INTEGER,
-              wingspan      INTEGER,
-              off_awareness INTEGER,
-              def_awareness INTEGER,
-              shot_form     INTEGER,
-              touch         INTEGER,
-              pass_accuracy INTEGER,
-              ball_handling INTEGER,
-              sliding       INTEGER,
-              hands         INTEGER
-            )")
-            .execute(&db)
-            .await {
-                Ok(val) => val,
-                Err(error) => panic!("Could not create people table:: {}", error)
-            };
 
-        let create_teams = match sqlx::query(
-            "CREATE TABLE IF NOT EXISTS teams
-            (
-                team_id     VARCHAR(250) PRIMARY KEY NOT NULL,
-                name        VARCHAR(100)             NOT NULL,
-                owner       VARCHAR(100)             NOT NULL,
-                coach       VARCHAR(100)             NOT NULL,
-                wins        INTEGER                  NOT NULL DEFAULT 0,
-                losses      INTEGER                  NOT NULL DEFAULT 0,
-                team_salary INTEGER                  NOT NULL DEFAULT 0,
-            )
-            ")
-            .execute(&db)
-            .await {
-                Ok(val) => val,
-                Err(error) => panic!("Could not create teams table:: {}", error)
-            };
-            
+        //Create People Tables
+        database_handlers::migrations::people_table::create_people_table(&db);
+        //Create Teams Tables
+        database_handlers::migrations::teams_table::create_teams_table(&db);
         
-        println!("Created People Table Result: {:?}", create_people_table);
         
-        let pregenerated_players_count = 20;
         let mut n = 0;
-
-        while n < pregenerated_players_count {
+        while n < PREGENERATED_PLAYERS_COUNT {
             let person = Person::gen_player();
             
             database_handlers::queries::people::insert_person(person, &db);
             
             n += 1;
         }
+        
         
     } else {
         println!("Savefile already exists");
