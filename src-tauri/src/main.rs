@@ -19,7 +19,6 @@ fn greet(name: &str){
 }
 
 
-
 fn main() {
   tauri::Builder::default()
     .invoke_handler(tauri::generate_handler![greet, load_game])

@@ -2,15 +2,17 @@
     import { invoke } from "@tauri-apps/api/tauri";
     import GameSavesAcordian from "../../lib/components/FrontPageComp/GameSavesAcordian.svelte";
     
-    async function test() {
-      await invoke('load_game') 
-    }
+    let saveName = 'jujumode';
 
+    async function test() {
+      await invoke('load_game', {saveName})
+        .then(() => console.log("Completed Loading Game"))
+        .catch((e) => console.error(e))
+    }
     let name = 'gusti'
     async function greet() {
       await invoke('greet', {name})
     }
-    
 </script>
 
 <h1 class="text-4xl font-bold dark:text-white mb-10">Create New Game</h1>
@@ -21,6 +23,7 @@
 
 <button on:click={test} >Test Function</button>
 <button on:click={greet}>Greeting Test Function</button>
+
 
 
 

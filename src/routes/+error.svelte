@@ -1,11 +1,9 @@
 <script lang="ts">
     import { page } from '$app/stores';
-
 </script>
 
-
 <h1 class="text-bold text-3xl">
-    Uhoh Error
+    Damn bruh code better 
     {$page.status}: {$page.error?.message}
 </h1>
 

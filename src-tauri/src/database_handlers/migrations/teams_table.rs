@@ -11,7 +11,7 @@ pub async fn create_teams_table(db: &SqlitePool) {
             coach       VARCHAR(100)             NOT NULL,
             wins        INTEGER                  NOT NULL DEFAULT 0,
             losses      INTEGER                  NOT NULL DEFAULT 0,
-            team_salary INTEGER                  NOT NULL DEFAULT 0,
+            team_salary INTEGER                  NOT NULL DEFAULT 0
         )
         ")
         .execute(db)

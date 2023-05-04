@@ -5,15 +5,12 @@ use tauri::api::path::data_dir;
 //std imports
 use std::fs::create_dir_all;
 
-
 //from my code
 use crate::generators::constants::PREGENERATED_PLAYERS_COUNT;
 
 use crate::team::teams::Team;
 use crate::people::Person;
-
 use crate::database_handlers;
-
 
 //modules
 #[derive(Clone, FromRow, Debug, Serialize)]
@@ -29,7 +26,7 @@ pub struct GameData{
 }
 
 #[tauri::command]
-pub async fn load_game() {
+pub async fn load_game(save_name: String) {
     
     let game_data = data_dir().unwrap();
 
@@ -46,12 +43,12 @@ pub async fn load_game() {
         }
     } 
     
-    let save_name = "save_04.db";
     
     let save_url_bigstr = "sqlite://".to_string() + 
                     &game_data.to_str().unwrap().to_string() + 
                     "/basketball_world/saves/" + 
-                    &save_name.to_string();
+                    save_name.as_str() + 
+                    ".db";
 
     let save_url = save_url_bigstr.as_str();
     
@@ -68,26 +65,28 @@ pub async fn load_game() {
         let db = SqlitePool::connect(save_url).await.unwrap();
 
         //Create People Tables
-        database_handlers::migrations::people_table::create_people_table(&db);
+        database_handlers::migrations::people_table::create_people_table(&db)
+            .await;
         //Create Teams Tables
-        database_handlers::migrations::teams_table::create_teams_table(&db);
-        
+        database_handlers::migrations::teams_table::create_teams_table(&db)
+            .await;
         
         let mut n = 0;
         while n < PREGENERATED_PLAYERS_COUNT {
-            let person = Person::gen_player();
             
-            database_handlers::queries::people::insert_person(person, &db);
+            let person = Person::gen_player();
+            database_handlers::queries::people::insert_person(person, &db)
+                .await;
             
             n += 1;
         }
         
     } else {
-        println!("Savefile already exists");
         
+        println!("Savefile already exists");
         let db = SqlitePool::connect(save_url).await.unwrap();
-
-        let people = database_handlers::queries::people::get_people(&db);
+        let people = database_handlers::queries::people::get_people(&db)
+            .await;
         
     }
 }

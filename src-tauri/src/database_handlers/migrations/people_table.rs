@@ -4,7 +4,7 @@ pub async fn create_people_table(db: &SqlitePool) {
     let create_people_table = match sqlx::query("
         CREATE TABLE IF NOT EXISTS people
         (
-          player_id   VARCHAR(250) PRIMARY KEY    NOT NULL,
+          person_id   VARCHAR(250) PRIMARY KEY    NOT NULL,
           name        VARCHAR(100)                NOT NULL,
           country     VARCHAR(100)                NOT NULL,
           age         INTEGER                     NOT NULL,
