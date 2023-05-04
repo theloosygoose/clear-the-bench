@@ -11,7 +11,7 @@ use crate::ratings::*;
 
 
 #[derive(Clone, FromRow, Debug, Serialize)]
-pub struct GetPlayer{
+pub struct GetPerson {
     pub name: String,
     pub person_id: String,
     pub job: String,
@@ -27,7 +27,7 @@ pub struct GetPlayer{
     pub intangibles: intangible::IntangibleRatings,
 }
 
-impl GetPlayer {
+impl GetPerson {
     pub fn translate_to_person(&self) -> Person{
         let name = self.name;
         let person_id = self.person_id;

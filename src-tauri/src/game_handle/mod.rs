@@ -113,7 +113,6 @@ pub async fn load_game() {
                 wins        INTEGER                  NOT NULL DEFAULT 0,
                 losses      INTEGER                  NOT NULL DEFAULT 0,
                 team_salary INTEGER                  NOT NULL DEFAULT 0,
-                
             )
             ")
             .execute(&db)
@@ -141,16 +140,7 @@ pub async fn load_game() {
         
         let db = SqlitePool::connect(save_url).await.unwrap();
 
-        let player_results = sqlx::query_as::<_,GetPlayer>(
-            "SELECT * FROM people"
-        )
-            .fetch_all(&db)
-            .await
-            .unwrap();
-        
-        for player in player_results {
-            player.translate_to_person();
-        } 
+        let people = database_handlers::queries::people::get_people(&db);
         
     }
 }

@@ -1,6 +1,7 @@
 use sqlx::SqlitePool;
 
 use crate::people::Person;
+use crate::database_handlers::getperson::GetPerson; 
 
 pub async fn insert_person(person: Person, db: &SqlitePool) {
     let result = sqlx::query(
@@ -55,6 +56,21 @@ pub async fn insert_person(person: Person, db: &SqlitePool) {
 }
 
 pub async fn get_people(db: &SqlitePool) -> Vec<Person> {
+
+        let mut people = vec![];
+    
+        let people_results = sqlx::query_as::<_,GetPerson>(
+            "SELECT * FROM people"
+        )
+            .fetch_all(db)
+            .await
+            .unwrap();
+        
+        for person_db in people_results {
+            let person = person_db.translate_to_person();
+            people.push(person);
+        }; 
+
+        return people;
     
 }
-

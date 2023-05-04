@@ -1,2 +1,2 @@
-pub mod getplayer;
+pub mod getperson;
 pub mod queries;
