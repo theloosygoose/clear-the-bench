@@ -32,7 +32,7 @@ pub enum Job {
 #[derive(Debug, Clone, Serialize, FromRow)]
 pub struct Person {
     pub name: String,
-    pub player_id: String,
+    pub person_id: String,
     pub job: Job,
     pub country: Country,
     pub age: u16,
@@ -59,14 +59,14 @@ impl Person {
         let job = Job::Player;
         let team = TeamName::generate_random();
         
-        let player_id = generate_person_id(&name, &country, &age);
+        let person_id = generate_person_id(&name, &country, &age);
         let intangibles = IntangibleRatings::gen();
         let tangibles = TangibleRatings::gen(&intangibles, &personality);
         
 
         Person { 
             name, 
-            player_id,
+            person_id,
             job, 
             active,
             country, 

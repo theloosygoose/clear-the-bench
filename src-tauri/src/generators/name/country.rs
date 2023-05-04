@@ -1,4 +1,5 @@
 use serde::Serialize;
+use sqlx::FromRow;
 use strum_macros::{EnumString, Display};
 use rand::{distributions::{Distribution, Standard}, Rng};
 

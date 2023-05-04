@@ -1,8 +1,9 @@
 use serde::Serialize;
+use sqlx::FromRow;
 
 use crate::generators::gen_ratings::generate_rating; use crate::generators::constants::{MEAN_RTG, MEAN_STD_DEV, WIDE_STD_DEV, NARROW_STD_DEV};
 
-#[derive(Debug, Clone, Copy, Serialize)]
+#[derive(Debug, Clone, Copy, Serialize, FromRow)]
 pub struct IntangibleRatings {
 //Physical Ratings
     pub strength: u16,
