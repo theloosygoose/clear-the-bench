@@ -40,14 +40,13 @@ pub async fn load_game() {
     println!("SAVE DIR::{:#?}", &save_data);
 
     if !save_data.exists() {
-        
         match create_dir_all(save_data) {
             Ok(_) => println!("Created Saves Directory"),
             Err(error) => println!("Error in Creating saves directory:: {}", error)
         }
     } 
     
-    let save_name = "save_03.db";
+    let save_name = "save_04.db";
     
     let save_url_bigstr = "sqlite://".to_string() + 
                     &game_data.to_str().unwrap().to_string() + 
@@ -82,7 +81,6 @@ pub async fn load_game() {
             
             n += 1;
         }
-        
         
     } else {
         println!("Savefile already exists");

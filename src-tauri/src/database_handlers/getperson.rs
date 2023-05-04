@@ -28,7 +28,7 @@ pub struct GetPerson {
 }
 
 impl GetPerson {
-    pub fn translate_to_person(&self) -> Person{
+    pub fn translate_to_person(self) -> Person {
         let name = self.name;
         let person_id = self.person_id;
         let job = Job::from_str(&self.job).unwrap();
