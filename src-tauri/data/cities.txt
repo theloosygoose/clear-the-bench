@@ -1,0 +1,10 @@
+city, longitude, latitude,
+Boston, -71.0597700,  42.3584300
+Philadelphia, -75.1637900, 39.9523300
+New York City, -74.0059700, 40.7142700
+Toronto, -79.4163000, 43.7001100
+Chicago, -87.6500500, 41.8500300
+Cleveland, -81.6954100, 41.4995000
+Detroit, -83.0457500, 42.3314300
+Indianapolis, -86.1580400, 39.7683800
+

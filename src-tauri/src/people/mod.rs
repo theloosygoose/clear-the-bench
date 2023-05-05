@@ -4,6 +4,7 @@ pub mod coach;
 pub mod owner;
 pub mod scout;
 pub mod journalist;
+pub mod gmanager;
 
 use rand::Rng;
 use serde::Serialize;
@@ -17,8 +18,6 @@ use crate::generators::name::country::Country;
 
 use crate::generators::name::gen_name::gen_name;
 use crate::ratings::tangible::TangibleRatings;
-use crate::team::teams::TeamName;
-
 
 #[derive(Debug, Clone, Serialize, EnumString, Display)]
 pub enum Job {
@@ -27,6 +26,7 @@ pub enum Job {
     Player,
     Journalist,
     Scout,
+    GeneralManager,
 }
 
 #[derive(Debug, Clone, Serialize, FromRow)]
@@ -37,7 +37,7 @@ pub struct Person {
     pub country: Country,
     pub age: u16,
     pub active: u8,
-    pub team: TeamName,
+    pub team: String,
     
     //Ratings
     #[sqlx(flatten)]
@@ -50,19 +50,17 @@ pub struct Person {
 
 
 impl Person {
-    pub fn gen_player() -> Person {
+    pub fn gen_person(job: Job, teamids: Vec<String>) -> Person {
         let (name, country) = gen_name();
         let personality = Personality::gen();
         let age = rand::thread_rng().gen_range(16..35);
         let active = 1;
         
-        let job = Job::Player;
-        let team = TeamName::generate_random();
+        let team = ;
         
         let person_id = generate_person_id(&name, &country, &age);
         let intangibles = IntangibleRatings::gen();
         let tangibles = TangibleRatings::gen(&intangibles, &personality);
-        
 
         Person { 
             name, 
@@ -78,32 +76,12 @@ impl Person {
         }
     }
 
-    pub fn gen_coach() -> Person {
-        todo!();
-    }
-
-    pub fn gen_journalist() -> Person {
-        todo!();
-    }
-
-    pub fn gen_owner() -> Person{
-        todo!();
-    }
-
-    pub fn gen_scout() -> Person {
-        todo!();
-    }
-
-    pub fn develop(&mut self) {
-        let mut intangibles = self.intangibles;
-        let mut tangibles = self.tangibles;
+    
+    pub fn develop(&mut self) -> &mut Self {
+        self.intangibles.off_awareness += 10;
+        self.intangibles.def_awareness += 10;
         
-        let work_ethic = self.personality.work_ethic;
-        let intelligence = self.personality.intelligence;
-
-        intangibles.off_awareness += 10;
-        intangibles.def_awareness += 10;
+        self
     }
     
 }
-

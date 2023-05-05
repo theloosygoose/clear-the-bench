@@ -28,7 +28,7 @@
         <p class="mb-2 text-gray-500 dark:text-gray-400">Team: {save.user_team}</p>
         <p class="text-gray-500 dark:text-gray-400">Year: {save.year}</p>
 
-        <Button class="mt-4" href="/game/{save.id}">
+        <Button class="mt-4"  href="/game/{save.id}">
           Load Save
           <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" 

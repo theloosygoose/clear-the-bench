@@ -10,7 +10,7 @@ pub mod team;
 pub mod game_handle;
 pub mod database_handlers;
 
-use crate::game_handle::load_game;
+use crate::game_handle::load::load_game;
 
 // remember to call `.manage(MyState::default())`
 #[tauri::command]

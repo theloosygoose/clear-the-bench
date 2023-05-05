@@ -16,7 +16,7 @@
 
 
 <main class="mt-5">
-<h1 class="dark:text-white text-4xl font-bold">{team.name}</h1>
+<h1 class="text-white text-4xl font-bold">{team.name}</h1>
 <h2 class="dark:text-white text-2xl p-2">Coach: {team.coach}</h2>
 <h2 class="dark:text-white text-xl p-2">Owner: {team.owner}</h2>
 <h2 class="dark:text-white text-xl p-2">Payroll: {team.team_salary}</h2>
