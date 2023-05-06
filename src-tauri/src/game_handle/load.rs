@@ -89,7 +89,7 @@ pub async fn load_game(save_name: String) -> GameData {
         let teams = database_handlers::queries::teams::get_teams(&db).await;
 
         GameData {
-            user_name: "Gusti Henry".to_string(),
+            user_name: "User_1".to_string(),
             save_name,
             people,
             teams,
@@ -107,7 +107,7 @@ pub async fn load_game(save_name: String) -> GameData {
         let teams = database_handlers::queries::teams::get_teams(&db).await;
         
         GameData {
-            user_name: "Gusti Henry".to_string(),
+            user_name: "User_1".to_string(),
             save_name,
             people,
             teams,

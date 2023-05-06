@@ -1,13 +1,7 @@
 <script lang="ts">
     import { invoke } from "@tauri-apps/api/tauri";
     import GameSavesAcordian from "../../lib/components/FrontPageComp/GameSavesAcordian.svelte";
-
-    let saveName = 'database_test_06';
-    async function test() {
-      let game_data = await invoke('load_game', {saveName});
-      console.log(game_data);
-    }
-
+    
     let name = 'gusti'
     async function greet() {
       await invoke('greet', {name})
@@ -22,7 +16,6 @@
 <GameSavesAcordian/>
 
 <button on:click={greet}>Greeting </button>
-<button on:click={test}>Test Function</button>
 
 
 
