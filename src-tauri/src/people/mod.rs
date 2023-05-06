@@ -37,7 +37,7 @@ pub struct Person {
     pub country: Country,
     pub age: u16,
     pub active: u8,
-    pub team: String,
+    pub team: Option<String>,
     
     //Ratings
     #[sqlx(flatten)]
@@ -50,13 +50,11 @@ pub struct Person {
 
 
 impl Person {
-    pub fn gen_person(job: Job, teamids: Vec<String>) -> Person {
+    pub fn gen_person(job: Job, team: Option<String>) -> Person {
         let (name, country) = gen_name();
         let personality = Personality::gen();
         let age = rand::thread_rng().gen_range(16..35);
         let active = 1;
-        
-        let team = ;
         
         let person_id = generate_person_id(&name, &country, &age);
         let intangibles = IntangibleRatings::gen();

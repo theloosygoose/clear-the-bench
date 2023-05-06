@@ -5,9 +5,10 @@ use tauri::api::path::data_dir;
 use std::fs::create_dir_all;
 
 //from my code
-use crate::generators::constants::PREGENERATED_PLAYERS_COUNT;
+use crate::generators::constants::ROSTER_SIZE;
 use crate::people::Person;
 use crate::database_handlers;
+use crate::team::Team;
 
 #[tauri::command]
 pub async fn load_game(save_name: String) {
@@ -56,14 +57,8 @@ pub async fn load_game(save_name: String) {
         database_handlers::migrations::teams_table::create_teams_table(&db)
             .await;
         
-        let mut n = 0;
-        
-        while n < PREGENERATED_PLAYERS_COUNT {
-            let person = Person::gen_player();
-            database_handlers::queries::people::insert_person(person, &db)
-                .await;
-            n += 1;
-        }
+
+        let teams = Team::gen_teams();
         
     } else {
         //Looks like the database file already exists so now read from it 
