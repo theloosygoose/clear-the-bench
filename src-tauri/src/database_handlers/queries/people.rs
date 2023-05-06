@@ -29,7 +29,7 @@ pub async fn insert_person(person: Person, db: &SqlitePool) {
         .bind(person.age)
         .bind(person.active)
         .bind(person.job.to_string())
-        .bind(person.team.to_string())
+        .bind(person.team)
         .bind(person.personality.work_ethic)
         .bind(person.personality.intelligence)
         .bind(person.personality.creativity)

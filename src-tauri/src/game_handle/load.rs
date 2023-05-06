@@ -5,13 +5,14 @@ use tauri::api::path::data_dir;
 use std::fs::create_dir_all;
 
 //from my code
-use crate::generators::constants::ROSTER_SIZE;
-use crate::people::Person;
+use crate::people::{Job, Person};
 use crate::database_handlers;
 use crate::team::Team;
 
+use crate::game_handle::gamedata::GameData;
+
 #[tauri::command]
-pub async fn load_game(save_name: String) {
+pub async fn load_game(save_name: String) -> GameData {
     
     //Get route where data is stored
     let game_data = data_dir().unwrap();
@@ -56,9 +57,43 @@ pub async fn load_game(save_name: String) {
         //Create Teams Tables
         database_handlers::migrations::teams_table::create_teams_table(&db)
             .await;
-        
 
         let teams = Team::gen_teams();
+
+        println!("Teams {:#?}", teams);
+
+        let mut players = vec![];
+        
+
+        //Insert Teams and also generate players
+        for team in teams {
+            let mut n = 0;
+            while n < 15 {
+                //For every team generate 15 players that are assigned to the team 
+                players.push(Person::gen_person(Job::Player, Some(team.id.clone())));
+                n+=1;
+            } 
+            
+           database_handlers::queries::teams::insert_team(team, &db).await;
+        }
+        
+        println!("Players {:#?}", players);
+
+        //Insert players generated from teams
+        for player in players {
+            database_handlers::queries::people::insert_person(player, &db).await;
+        };
+        
+        let people = database_handlers::queries::people::get_people(&db).await;
+        
+        let teams = database_handlers::queries::teams::get_teams(&db).await;
+
+        GameData {
+            user_name: "Gusti Henry".to_string(),
+            save_name,
+            people,
+            teams,
+        }
         
     } else {
         //Looks like the database file already exists so now read from it 
@@ -66,9 +101,16 @@ pub async fn load_game(save_name: String) {
         
         //Connect to the Sqlite DB that already exists
         let db = SqlitePool::connect(save_url).await.unwrap();
-        let people = database_handlers::queries::people::get_people(&db)
-            .await;
         
-
+        let people = database_handlers::queries::people::get_people(&db).await;
+        
+        let teams = database_handlers::queries::teams::get_teams(&db).await;
+        
+        GameData {
+            user_name: "Gusti Henry".to_string(),
+            save_name,
+            people,
+            teams,
+        }
     }
 }

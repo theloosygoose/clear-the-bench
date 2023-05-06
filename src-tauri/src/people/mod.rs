@@ -55,6 +55,17 @@ impl Person {
         let personality = Personality::gen();
         let age = rand::thread_rng().gen_range(16..35);
         let active = 1;
+
+        let mut age:u16 = 0;
+        
+        match job {
+            Job::Coach => age = rand::thread_rng().gen_range(32..70),
+            Job::Owner => age = rand::thread_rng().gen_range(50..70),
+            Job::Player => age = rand::thread_rng().gen_range(16..35),
+            Job::Journalist => age = rand::thread_rng().gen_range(16..50),
+            Job::Scout => age = rand::thread_rng().gen_range(25..60),
+            Job::GeneralManager => age = rand::thread_rng().gen_range(27..70),
+        }
         
         let person_id = generate_person_id(&name, &country, &age);
         let intangibles = IntangibleRatings::gen();

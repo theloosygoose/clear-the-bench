@@ -5,7 +5,6 @@ use serde::Serialize;
 
 use crate::generators::name::country::Country;
 use crate::ratings::tangible::TangibleRatings;
-use crate::team::teams::TeamName;
 use crate::people::{Person, Job};
 use crate::ratings::*;
 
@@ -18,7 +17,7 @@ pub struct GetPerson {
     pub country: String,
     pub age: u16,
     pub active: u8,
-    pub team: String,
+    pub team: Option<String>,
     
     //Ratings
     #[sqlx(flatten)]
@@ -35,7 +34,9 @@ impl GetPerson {
         let country = Country::from_str(&self.country).unwrap();
         let age = self.age;
         let active = self.active;
-        let team = TeamName::from_str(&self.team).unwrap();
+        
+        let team = self.team;
+        
         let personality = self.personality;
         let intangibles = self.intangibles;
         let tangibles = TangibleRatings::gen(&intangibles, &personality);

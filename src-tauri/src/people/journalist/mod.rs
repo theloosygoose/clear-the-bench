@@ -1,12 +1,9 @@
 use serde::Serialize;
 
-use crate::team::teams::TeamName;
-
-
 #[derive(Debug, Clone, Serialize)]
 enum Reigon {
     National,
-    TeamName(TeamName),
+    TeamName(String),
 }
 
 #[derive(Debug, Clone, Serialize)]
