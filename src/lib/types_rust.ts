@@ -4,4 +4,7 @@ export type GameSaveData = {
     id: number,
     user_team: string,
     year: number,
+    teams: Array<any>,
+    people: Array<any>,
 }
+

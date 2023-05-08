@@ -6,4 +6,3 @@
 <div class="mx-5">
   <slot />
 </div>
-

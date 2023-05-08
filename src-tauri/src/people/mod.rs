@@ -53,11 +53,11 @@ impl Person {
     pub fn gen_person(job: Job, team: Option<String>) -> Person {
         let (name, country) = gen_name();
         let personality = Personality::gen();
-        let age = rand::thread_rng().gen_range(16..35);
+        
         let active = 1;
 
-        let mut age:u16 = 0;
         
+        let age: u16;
         match job {
             Job::Coach => age = rand::thread_rng().gen_range(32..70),
             Job::Owner => age = rand::thread_rng().gen_range(50..70),
