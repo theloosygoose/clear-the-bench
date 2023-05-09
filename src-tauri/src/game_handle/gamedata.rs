@@ -1,7 +1,7 @@
 use serde::Serialize;
 
-use crate::team::Team;
 use crate::people::Person;
+use crate::team::Team;
 
 #[derive(Debug, Serialize)]
 pub struct GameData {

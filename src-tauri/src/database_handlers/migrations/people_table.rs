@@ -1,7 +1,8 @@
 use sqlx::SqlitePool;
 
 pub async fn create_people_table(db: &SqlitePool) {
-    let create_people_table = match sqlx::query("
+    let create_people_table = match sqlx::query(
+        "
         CREATE TABLE IF NOT EXISTS people
         (
           person_id   VARCHAR(250) PRIMARY KEY    NOT NULL,
@@ -31,10 +32,12 @@ pub async fn create_people_table(db: &SqlitePool) {
           ball_handling INTEGER,
           sliding       INTEGER,
           hands         INTEGER
-        )")
-        .execute(db)
-        .await {
-            Ok(val) => val,
-            Err(error) => panic!("Could not create people table:: {}", error)
-        };
+        )",
+    )
+    .execute(db)
+    .await
+    {
+        Ok(val) => val,
+        Err(error) => panic!("Could not create people table:: {}", error),
+    };
 }

@@ -1,16 +1,14 @@
 use rand::Rng;
 use rand_distr::Normal;
 
-
-
-//Generate Random Rating 
+//Generate Random Rating
 pub fn generate_rating(mean: f32, std_dev: f32) -> u16 {
     let mut rng = rand::thread_rng();
-    let normal= Normal::new(mean, std_dev).unwrap();
+    let normal = Normal::new(mean, std_dev).unwrap();
 
     let mut rating = rng.sample(normal).abs();
 
-    while rating > 100.00 || rating < 0.0{
+    while rating > 100.00 || rating < 0.0 {
         rating = rng.sample(normal).abs().round();
     }
 

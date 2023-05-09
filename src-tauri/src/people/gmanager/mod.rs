@@ -1,4 +1,1 @@
-
-
-pub struct GeneralManager {
-}
+pub struct GeneralManager {}

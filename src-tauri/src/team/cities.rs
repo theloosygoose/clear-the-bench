@@ -10,8 +10,7 @@ pub struct City {
 
 impl City {
     pub fn gen() -> Vec<City> {
-        let cities_csv = 
-        "city_name,longitude,latitude
+        let cities_csv = "city_name,longitude,latitude
 Boston,-71.0597700,42.3584300
 Philadelphia,-75.1637900,39.9523300
 New York City,-74.0059700,40.7142700
@@ -30,7 +29,7 @@ Indianapolis,-86.1580400,39.7683800";
                 Ok(val) => val,
                 Err(err) => panic!("Unable to Read CSV:: {}", err),
             };
-            
+
             cities.push(city);
         }
 

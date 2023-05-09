@@ -5,7 +5,7 @@
   
 <Navbar let:hidden>
     <NavUl {hidden}>
-      <NavLi href="/">Home</NavLi>
+      <NavLi href="./">Home</NavLi>
       <NavLi href="./teams">Teams</NavLi>
       <NavLi href="./players">Players</NavLi>
     </NavUl>

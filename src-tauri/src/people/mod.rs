@@ -1,20 +1,20 @@
 #![allow(dead_code)]
-pub mod player;
 pub mod coach;
-pub mod owner;
-pub mod scout;
-pub mod journalist;
 pub mod gmanager;
+pub mod journalist;
+pub mod owner;
+pub mod player;
+pub mod scout;
 
 use rand::Rng;
 use serde::Serialize;
 use sqlx::FromRow;
-use strum::{EnumString, Display};
+use strum::{Display, EnumString};
 
 use crate::generators::id::generate_person_id;
+use crate::generators::name::country::Country;
 use crate::ratings::intangible::IntangibleRatings;
 use crate::ratings::personality::Personality;
-use crate::generators::name::country::Country;
 
 use crate::generators::name::gen_name::gen_name;
 use crate::ratings::tangible::TangibleRatings;
@@ -38,7 +38,7 @@ pub struct Person {
     pub age: u16,
     pub active: u8,
     pub team: Option<String>,
-    
+
     //Ratings
     #[sqlx(flatten)]
     pub personality: Personality,
@@ -48,15 +48,13 @@ pub struct Person {
     pub tangibles: TangibleRatings,
 }
 
-
 impl Person {
     pub fn gen_person(job: Job, team: Option<String>) -> Person {
         let (name, country) = gen_name();
         let personality = Personality::gen();
-        
+
         let active = 1;
 
-        
         let age: u16;
         match job {
             Job::Coach => age = rand::thread_rng().gen_range(32..70),
@@ -66,31 +64,29 @@ impl Person {
             Job::Scout => age = rand::thread_rng().gen_range(25..60),
             Job::GeneralManager => age = rand::thread_rng().gen_range(27..70),
         }
-        
+
         let person_id = generate_person_id(&name, &country, &age);
         let intangibles = IntangibleRatings::gen();
         let tangibles = TangibleRatings::gen(&intangibles, &personality);
 
-        Person { 
-            name, 
+        Person {
+            name,
             person_id,
-            job, 
+            job,
             active,
-            country, 
+            country,
             team,
-            age, 
+            age,
             personality,
             tangibles,
             intangibles,
         }
     }
 
-    
     pub fn develop(&mut self) -> &mut Self {
         self.intangibles.off_awareness += 10;
         self.intangibles.def_awareness += 10;
-        
+
         self
     }
-    
 }

@@ -1,7 +1,6 @@
 use sqlx::SqlitePool;
 
 pub async fn create_teams_table(db: &SqlitePool) {
-    
     match sqlx::query(
         "CREATE TABLE IF NOT EXISTS teams
         (
@@ -16,14 +15,12 @@ pub async fn create_teams_table(db: &SqlitePool) {
             losses      INTEGER                  NOT NULL DEFAULT 0,
             team_salary INTEGER                  NOT NULL DEFAULT 0
         )
-        ")
-        .execute(db)
-        .await {
-            Ok(val) => val,
-            Err(error) => panic!("Could not create teams table:: {}", error)
-        };
-    
+        ",
+    )
+    .execute(db)
+    .await
+    {
+        Ok(val) => val,
+        Err(error) => panic!("Could not create teams table:: {}", error),
+    };
 }
-
-
-

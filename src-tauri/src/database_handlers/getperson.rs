@@ -1,13 +1,12 @@
 use std::str::FromStr;
 
-use sqlx::FromRow;
 use serde::Serialize;
+use sqlx::FromRow;
 
 use crate::generators::name::country::Country;
+use crate::people::{Job, Person};
 use crate::ratings::tangible::TangibleRatings;
-use crate::people::{Person, Job};
 use crate::ratings::*;
-
 
 #[derive(Clone, FromRow, Debug, Serialize)]
 pub struct GetPerson {
@@ -18,7 +17,7 @@ pub struct GetPerson {
     pub age: u16,
     pub active: u8,
     pub team: Option<String>,
-    
+
     //Ratings
     #[sqlx(flatten)]
     pub personality: personality::Personality,
@@ -34,24 +33,24 @@ impl GetPerson {
         let country = Country::from_str(&self.country).unwrap();
         let age = self.age;
         let active = self.active;
-        
+
         let team = self.team;
-        
+
         let personality = self.personality;
         let intangibles = self.intangibles;
         let tangibles = TangibleRatings::gen(&intangibles, &personality);
 
-        Person { 
-            name, 
-            person_id, 
-            job, 
-            country, 
-            age, 
-            active, 
-            team, 
-            personality, 
-            intangibles, 
-            tangibles 
+        Person {
+            name,
+            person_id,
+            job,
+            country,
+            age,
+            active,
+            team,
+            personality,
+            intangibles,
+            tangibles,
         }
     }
 }

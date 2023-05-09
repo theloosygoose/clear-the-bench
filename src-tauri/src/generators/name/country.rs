@@ -1,22 +1,39 @@
+use rand::{
+    distributions::{Distribution, Standard},
+    Rng,
+};
 use serde::Serialize;
 use sqlx::FromRow;
-use strum_macros::{EnumString, Display};
-use rand::{distributions::{Distribution, Standard}, Rng};
+use strum_macros::{Display, EnumString};
 
 #[derive(Debug, Display, EnumString, Clone, Serialize)]
 pub enum Country {
-    UnitedStates, Canada, Cameroon,
-    France, Australia, Germany,
-    Serbia, Croatia, Spain,
-    Brazil, Argentina, Lithuania,
-    Nigeria, UnitedKingdom, Senegal,
-    Turkey, Jamacia, PuertoRico,
-    China, Latvia, SouthSudan,
+    UnitedStates,
+    Canada,
+    Cameroon,
+    France,
+    Australia,
+    Germany,
+    Serbia,
+    Croatia,
+    Spain,
+    Brazil,
+    Argentina,
+    Lithuania,
+    Nigeria,
+    UnitedKingdom,
+    Senegal,
+    Turkey,
+    Jamacia,
+    PuertoRico,
+    China,
+    Latvia,
+    SouthSudan,
 }
 
 impl Distribution<Country> for Standard {
     fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Country {
-        match rng.gen_range(0..=22){
+        match rng.gen_range(0..=22) {
             0 => Country::UnitedStates,
             1 => Country::UnitedStates,
             2 => Country::UnitedStates,

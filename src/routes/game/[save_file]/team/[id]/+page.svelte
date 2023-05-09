@@ -18,7 +18,7 @@
 </script>
 
 <h1 class="text-4xl">{team_data[0].city.city_name} {team_data[0].name} </h1>
-<h2></h2>
+<h2 class="italic">{team_data[0].team_salary}</h2>
 
 {#each team_people as person}
   <h1>{person.name}</h1>
