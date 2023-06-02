@@ -1,16 +1,3 @@
-# Basketball Simulation
-_Basketball Simulation Game/Engine Built in Tauri_
-
-## Built With 
-
-UI
+# Clear the Bench
 ---
-- Sveltekit
-- Tailwind
-- Flowbite UI Library
-
-Backend
----
-- Rust
-- Tauri
-- SQLite
+A basketball management and simulation game currently under development
